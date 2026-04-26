@@ -2,19 +2,17 @@
 
 Regime-aware extension of [Fin-GAN](https://github.com/milenavuletic/Fin-GAN) for stock--ETF excess-return forecasting.
 
-This project keeps the original Fin-GAN stock--ETF forecasting setting and adds market-regime features built from ETFs, interest rates, volatility, and credit-spread proxies.
+This project keeps the original Fin-GAN stock--ETF forecasting setup and adds market-regime features built from ETFs, interest rates, volatility, and credit-spread proxies.
 
 Reference paper: [Fin-GAN: Forecasting and Classifying Financial Time Series via Generative Adversarial Networks](https://doi.org/10.1080/14697688.2023.2299466)
 
-The forecasting target is:
+Forecasting target:
 
-$$
-p(y_{t+1}\mid C_t, R_t)
-$$
+```text
+p(y_{t+1} | C_t, R_t)
+```
 
-where $begin:math:text$C\_t$end:math:text$ is the historical stock--ETF return window, $begin:math:text$R\_t$end:math:text$ is the market-regime state, and $begin:math:text$y\_\{t\+1\}$end:math:text$ is the next-period excess return.
-
----
+where `C_t` is the historical stock--ETF return window, `R_t` is the market-regime state, and `y_{t+1}` is the next-period excess return.
 
 ## 1. What is added
 
@@ -23,7 +21,7 @@ Compared with the original Fin-GAN setup, this repository adds:
 - market-regime features from broad ETFs, sector ETFs, Treasury yields, VIX, and credit-spread proxies;
 - regime-factor models for compressed market-state conditioning;
 - transaction-cost, smoothing, ticker-level, period-level, and regime-level evaluation;
-- publication-ready result tables and figures.
+- cleaned result figures for GitHub display.
 
 Implemented model variants:
 
@@ -35,8 +33,6 @@ Implemented model variants:
 - RAM-FinGAN v3 with economic conditioning
 - regime-economic LSTM v4
 
----
-
 ## 2. Data
 
 Raw market data are not included in this repository.
@@ -46,7 +42,7 @@ CRSP/WRDS data should be downloaded from [CRSP on WRDS](https://wrds-www.wharton
 Recommended WRDS path:
 
 ```text
-CRSP → Annual Update → Legacy Data - Stock / Security Files → Daily Stock File
+CRSP -> Annual Update -> Legacy Data - Stock / Security Files -> Daily Stock File
 ```
 
 Sample period:
@@ -81,9 +77,25 @@ External series:
 
 Note: historical access to `BAMLH0A0HYM2` through FRED is currently limited. Use the ICE source directly or replace it with a documented credit-spread proxy such as `BAA10Y` or an `HYG-LQD` spread proxy.
 
----
+## 3. Results
 
-## 3. Usage and outputs
+Cleaned result figures are stored in:
+
+```text
+results_figures/
+```
+
+Selected figures:
+
+![Overall model ranking](results_figures/overall_model_ranking.png)
+
+![Cumulative PnL](results_figures/cumulative_pnl_test.png)
+
+![Transaction-cost robustness](results_figures/transaction_cost_robustness.png)
+
+![Ticker-model Sharpe matrix](results_figures/ticker_model_sharpe_matrix.png)
+
+## 4. Usage
 
 Install dependencies:
 
@@ -91,7 +103,7 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Run the pipeline:
+Run the pipeline after preparing the raw data:
 
 ```bash
 python src/01_clean_and_check_raw_data.py
@@ -112,39 +124,13 @@ python src/15_final_summary_tables.py
 python src/16_make_publication_figures.py
 ```
 
-Repository layout:
-
-```text
-RAM-FinGAN/
-├── configs/
-├── src/
-├── outputs/
-│   ├── plots/publication_figures/
-│   └── results/
-│       ├── analysis/
-│       ├── final_summary/
-│       ├── robustness/
-│       └── position_smoothing/
-├── README.md
-├── requirements.txt
-└── default.yaml
-```
-
-Generated result files are under:
-
-```text
-outputs/results/
-outputs/plots/publication_figures/
-```
-
-The following folders are intentionally excluded from the public repository:
+Excluded from the public repository:
 
 ```text
 data_raw/
 data_clean/tickers/
 data_clean/ram_panel/
-outputs/models/
-outputs/logs/
+outputs/
 ```
 
 This repository is for research use only. It is not financial advice.
