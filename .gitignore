@@ -49,3 +49,5 @@ outputs/results/regime_econ_lstm_v4/
 x.txt
 *.tmp
 *.bak
+outputs/
+figures/
