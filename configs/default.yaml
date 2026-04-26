@@ -1,0 +1,60 @@
+project:
+  name: RAM-FinGAN
+  root: /home/kwang/RAM-FinGAN
+  python: /opt/mambaforge/bin/python
+
+data:
+  raw_crsp_dir: data_raw/crsp
+  raw_external_dir: data_raw/external
+  clean_ticker_dir: data_clean/tickers
+  ram_feature_dir: data_clean/ram_features
+  ram_panel_dir: data_clean/ram_panel
+
+  raw_files:
+    stocks: data_raw/crsp/Stocks-data.csv
+    sector_etfs: data_raw/crsp/ETFs-data.csv
+    market_etfs: data_raw/crsp/Market-ETFs-data.csv
+    vix: data_raw/external/VIXCLS.csv
+    dgs10: data_raw/external/DGS10.csv
+    dgs2: data_raw/external/DGS2.csv
+    dgs3mo: data_raw/external/DGS3MO.csv
+    credit_oas: data_raw/external/BAMLH0A0HYM2.csv
+
+  final_files:
+    market_state_lag1: data_clean/ram_features/market_state_features_trading_days_model_lag1.csv
+    all_stock_panel: data_clean/ram_panel/ALL_STOCKS_panel.csv
+    regime_factors: outputs/results/regime_baselines/regime_factors_by_date.csv
+
+sample:
+  start_date: 2000-01-01
+  end_date: 2021-12-31
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1
+
+model:
+  window_length: 10
+  pred_horizon: 1
+  batch_size: 512
+  seed: 42
+  device: cpu
+
+regime_features:
+  n_pca_factors: 5
+  n_regime_clusters: 3
+  use_lagged_market_features: true
+
+main_results:
+  primary_model: regime_factor_lstm
+  key_baselines:
+    - baseline_lstm_xonly
+    - naive_ram_lstm
+    - ram_fingan_v2
+    - ram_fingan_v3
+    - regime_econ_lstm_v4
+
+outputs:
+  logs: outputs/logs
+  models: outputs/models
+  results: outputs/results
+  figures: outputs/plots/publication_figures
