@@ -1,5 +1,0 @@
-finding,evidence
-Best predictive model without transaction cost,"regime_factor_lstm has test Sharpe 0.551, direction accuracy 51.622%, mean PnL 2.881 bp."
-Regime-factor model is strongest during COVID shock,"During COVID shock, regime_factor_lstm Sharpe = 0.797."
-Transaction costs expose high-turnover weakness,"At 2bp cost, raw regime_factor_lstm Sharpe drops to 0.222 with turnover 1.721."
-Position smoothing improves deployability under costs,"At 5bp cost, smoothing improves Sharpe from -0.274 to 0.149, reducing turnover by 97.5%."
